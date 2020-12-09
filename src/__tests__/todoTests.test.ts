@@ -28,14 +28,28 @@ url: string = "https://devmountain.github.io/qa_todos/";
 navigate() {
   this.driver.get(this.url);
   }
-
-let todo
 }
-
-
+const em = new TodoPage(driver);
+ 
 describe("the todo app", () => {
-  it("can add a todo", () => {});
-  it("can remove a todo", () => {});
-  it("can mark a todo with a star", () => {});
-  it("has the right number of todos listed", () => {});
+  beforeEach(async () => {
+    await em.navigate();
+  });
+  afterAll(async () => {
+    await driver.quit();
+  });
+
+  it("can add a todo", async () => {
+    await driver.wait(until.elementLocated(em.todoInput));
+    await driver.findElement(em.todoInput).sendKeys("Test To-Do\n");
+  });
+  it("can remove a todo", async () => {
+    await (await driver.findElement(em.clearCompletedButton)).click();
+  });
+  it("can mark a todo with a star", async () => {
+
+  });
+  it("has the right number of todos listed", async () => {
+  
+  });
 });
